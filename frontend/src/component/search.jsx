@@ -1,8 +1,14 @@
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 import { TypeAnimation } from "react-type-animation";
+import { useNavigate } from 'react-router-dom'
 
 export const Search = () => {
+  const navigate = useNavigate()
+
+  const RedirectToSearchPage = () => {
+    navigate("/search")
+  }
   return (
     <div className="w-full min-w-[300px] lg:min-w-[420px] border  h-11 lg:h-12 rounded-lg overflow-hidden flex items-center text-neutral-500 group focus-within:border-primary-200">
         <div>
@@ -10,7 +16,7 @@ export const Search = () => {
             <IoSearch size={22}/>
             </button>
         </div>
-      <div className="w-full h-full flex items-center">
+      <div onClick={RedirectToSearchPage} className="w-full h-full flex items-center">
         <TypeAnimation
           sequence={[
             // Same substring at the start will only be typed out once, initially
