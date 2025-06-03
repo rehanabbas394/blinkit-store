@@ -1,12 +1,32 @@
 import React from "react";
 import logo from '../assets/logo.png'
 import {Search } from './search'
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import useMobile from "../hooks/useMobile";
+import { FaRegCircleUser } from "react-icons/fa6";
+import { BsCart4 } from "react-icons/bs";
+
+
 
 export const Header = () =>{
+    const [isMobile] = useMobile()
+    const location = useLocation()
+    const navigate  = useNavigate
+    const isSearchPage = location.pathname === "/search"
+
+    const RedirectTologinPage = ()=>{
+        navigate("/login")
+    }
+    
+    // const hundleMobileUser = () => {
+
+    // }
     return(
        <header className="h-20 lg:h-24 lg:shadow-md sticky top-0 z-40  flex flex-col justify-center gap-1 bg-white">
-        <div className="container flex justify-between items-center mx-auto px-2">
+        {
+            !(isMobile && isSearchPage) && (
+                // when i was on desktop
+                 <div className="container flex justify-between items-center mx-auto px-2">
             {/* logo code */}
             <Link to={"/"} className="h-full ">
                 {/* for desktop device */}
@@ -27,14 +47,41 @@ export const Header = () =>{
                 />
             </Link>
             {/* search code */}
-            <div>
+            <div className="hidden lg:block">
                <Search/>
             </div>
             {/* login register and add to card */}
-            <div>
-                login and card
+            <div className="">
+                {/* for mobile version */}
+                <button className="lg:hidden text-neutral-600">
+                    < FaRegCircleUser size={26}/>
+                </button>
+
+                {/* for desktop screen */}
+                <div className=" hidden lg:flex items-center gap-10 ">
+                    <button onClick={RedirectTologinPage} className="text-lg px-2"> Login </button>
+                    <button className="flex items-center text-white rounded gap-2 bg-green-800 hover:bg-green-700 px-4 py-3">
+                        {/* add to card icon */}
+                        <div className="animate-bounce">
+                            <BsCart4 size={28} />
+                        </div>
+                        <div className="font-semibold">
+                           <p> My Cart </p> 
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
+
+            ) 
+        }
+
+        <div className="container mx-auto px-2  lg:hidden">
+                   <Search/>
+                </div>
+       
+
+
         
        </header>
     )
