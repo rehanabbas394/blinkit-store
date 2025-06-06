@@ -46,6 +46,9 @@ export const Login = () => {
 
       if (resp.data.success) {
         toast.success(resp.data.message);
+        console.log
+        localStorage.setItem("accessToken", resp.data.data?.accesstoken)
+        localStorage.setItem("refreshToken", resp.data.data?.refreshToken)
         console.log(resp.data.message)
         setData({
           email: "",
