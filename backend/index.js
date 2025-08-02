@@ -1,44 +1,53 @@
-import express from 'express';
-import cors from 'cors';
-import helmet from 'helmet';
-import morgan from 'morgan';
-import cookieParser from 'cookie-parser';
-import dotenv from 'dotenv';
-dotenv.config();
-import connectDB from './config/connectDB.js';
+import express from 'express'
+import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config()
+import cookieParser from 'cookie-parser'
+import morgan from 'morgan'
+import helmet from 'helmet'
+import connectDB from './config/connectDB.js'
+import userRouter from './route/user.route.js'
+import categoryRouter from './route/category.route.js'
+import uploadRouter from './route/upload.router.js'
+import subCategoryRouter from './route/subCategory.route.js'
+import productRouter from './route/product.route.js'
+import cartRouter from './route/cart.route.js'
+import addressRouter from './route/address.route.js'
+import orderRouter from './route/order.route.js'
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Middleware
-
+const app = express()
 app.use(cors({
-    credentials: true,  // Allow credentials
-    origin: process.env.FRONTEND_URL || 'http://localhost:3000' // Replace with your frontend URL
-}));
-app.use(express.json()); // Parse JSON bodies
-app.use(cookieParser()); // Parse cookies
+    credentials : true,
+    origin : process.env.FRONTEND_URL
+}))
+app.use(express.json())
+app.use(cookieParser())
+app.use(morgan())
 app.use(helmet({
-    contentSecurityPolicy: false, // Disable CSP for simplicity, configure as needed
-})); // Security middleware
-app.use(morgan()); // Logging middleware
+    crossOriginResourcePolicy : false
+}))
 
+const PORT = 8080 || process.env.PORT 
 
-// Routes
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Something broke!');
-});
-
-// Connect to MongoDB
-connectDB().then(() => {
-    // Start the server
-    app.listen(PORT, () => {
-        console.log(`Server is running on ${PORT}`);
-    });
+app.get("/",(request,response)=>{
+    ///server to client
+    response.json({
+        message : "Server is running " + PORT
+    })
 })
+
+app.use('/api/user',userRouter)
+app.use("/api/category",categoryRouter)
+app.use("/api/file",uploadRouter)
+app.use("/api/subcategory",subCategoryRouter)
+app.use("/api/product",productRouter)
+app.use("/api/cart",cartRouter)
+app.use("/api/address",addressRouter)
+app.use('/api/order',orderRouter)
+
+connectDB().then(()=>{
+    app.listen(PORT,()=>{
+        console.log("Server is running",PORT)
+    })
+})
+
