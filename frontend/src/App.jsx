@@ -1,11 +1,17 @@
 import './App.css'
+import { Outlet } from 'react-router-dom';
+import { Header } from './component/header';
+import { Footer } from './component/footer';
 
 function App() {
   return (
-  <div className="p-4">
-    <h1 className="text-3xl font-bold text-red-600">Hello Rehan</h1>
-    <p className="mt-2 bg-blue-200 p-2">This is a test paragraph with Tailwind classes</p>
-  </div>
+   <>
+      <Header/>
+      <main className='min-h-[75vh]'>
+        <Outlet/>
+      </main>
+      <Footer/>
+   </>
   )
 }
 
