@@ -11,10 +11,11 @@ import { BsCart4 } from "react-icons/bs";
 export const Header = () =>{
     const [isMobile] = useMobile()
     const location = useLocation()
-    const navigate  = useNavigate
+    const navigate  = useNavigate()
     const isSearchPage = location.pathname === "/search"
 
     const RedirectTologinPage = ()=>{
+        console.log("navigat to login page")
         navigate("/login")
     }
     
