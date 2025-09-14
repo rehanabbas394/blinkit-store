@@ -9,7 +9,7 @@ import { Axios } from "../utils/Axios";
 import Api_endpoints from "../common/api-details";
 import AxiosToastError from "../utils/Axios-toast-error";
 
-function UserMenu() {
+function UserMenu({ close }) {
   const user = useSelector((state) => state.user);
   console.log("user from usermenu", user);
   const dispatch = useDispatch()
@@ -22,6 +22,9 @@ function UserMenu() {
        })
        console.log("response from logout", response)
        if(response.data.success) {
+        if (close) {
+            close()
+        }
         dispatch(logoutUser())
         localStorage.clear()
         toast.success(response.data.message)

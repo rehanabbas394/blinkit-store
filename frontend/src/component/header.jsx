@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import logo from '../assets/logo.png'
 import {Search } from './search'
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -17,7 +17,7 @@ export const Header = () =>{
     const user = useSelector(state=> state.user)
     console.log("user from header", user)
 
-    const [ openUserMenu, SetOpenUserMenu ] = React.useState(false)
+    const [ openUserMenu, SetOpenUserMenu ] = useState(false)
 
     const RedirectTologinPage = ()=>{
         console.log("navigat to login page")
@@ -27,6 +27,9 @@ export const Header = () =>{
     // const hundleMobileUser = () => {
 
     // }
+    const closeUserMenu = () => {
+       SetOpenUserMenu(false)
+    }
     return(
        <header className="h-20 lg:h-24 lg:shadow-md sticky top-0 z-40  flex flex-col justify-center gap-1 bg-white">
         {
@@ -81,7 +84,7 @@ export const Header = () =>{
                                 {openUserMenu && (
                                     <div className="absolute top-[3.5rem] right-0 z-50">
                                         <div className="bg-white rounded-lg p-4 min-w-[13rem] shadow-lg border">
-                                            <UserMenu />
+                                            <UserMenu close = {closeUserMenu} />
                                          </div>
                                     </div>
                                 )}
