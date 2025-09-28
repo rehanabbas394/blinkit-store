@@ -59,7 +59,6 @@ export const Login = () => {
         localStorage.setItem("accessToken", resp.data.data?.accesstoken)
         localStorage.setItem("refreshToken", resp.data.data?.refreshToken)
         const userData = await fetchUser()
-        console.log("data from login", userData)
         dispatch(setUserDetails(userData.data))
         console.log(resp.data.message)
         setData({

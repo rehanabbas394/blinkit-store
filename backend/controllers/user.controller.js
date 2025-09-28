@@ -217,9 +217,16 @@ export async  function uploadAvatar(request,response){
         const image = request.file  // multer middleware
 
         const upload = await uploadImageClodinary(image)
-        
+        if(!upload){
+            return response.status(500).json({
+                message : "Image upload failed",
+                error : true,
+                success : false
+            })
+        }
+        const url = upload.url
         const updateUser = await UserModel.findByIdAndUpdate(userId,{
-            avatar : upload.url
+            avatar : url
         })
 
         return response.json({

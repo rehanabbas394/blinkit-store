@@ -8,61 +8,78 @@ import toast from "react-hot-toast";
 import { Axios } from "../utils/Axios";
 import Api_endpoints from "../common/api-details";
 import AxiosToastError from "../utils/Axios-toast-error";
+import { HiOutlineExternalLink } from "react-icons/hi";
 
 function UserMenu({ close }) {
   const user = useSelector((state) => state.user);
-  console.log("user from usermenu", user);
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const hundleLogout = async () => {
-   try{
-       const response = await Axios({
-        ...Api_endpoints.logout
-       })
-       console.log("response from logout", response)
-       if(response.data.success) {
+    try {
+      const response = await Axios({
+        ...Api_endpoints.logout,
+      });
+      console.log("response from logout", response);
+      if (response.data.success) {
         if (close) {
-            close()
+          close();
         }
-        dispatch(logoutUser())
-        localStorage.clear()
-        toast.success(response.data.message)
-        navigate("/")
-       }
-   } catch(error){
-    console.log("error while logout", error)
-    AxiosToastError(error)
-   }
+        dispatch(logoutUser());
+        localStorage.clear();
+        toast.success(response.data.message);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("error while logout", error);
+      AxiosToastError(error);
+    }
+  };
 
+  const hundleClose = () => {
+    if (close) {
+      close();
+    }
   }
 
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg p-5">
       {/* Header */}
       <div className="font-semibold text-lg text-gray-800">My Account</div>
-      <div className="mt-1 text-sm text-gray-600">
-        {user?.firstName} {user?.name || user?.mobile}
+      <div className="flex items-center gap-2 mt-1 text-sm text-gray-600">
+        <span className="max-w-52 text-ellipsis line-clamp-1">
+          {user?.firstName} {user?.name || user?.mobile}
+        </span>
+        <Link onClick={hundleClose} to={"/dashboard/profile"} className="hover:text-primary-200">
+          <HiOutlineExternalLink size={15} />
+        </Link>
       </div>
-      <div className="text-sm text-gray-500">{user?.email}</div>
+      <div className="max-w-52 text-ellipsis line-clamp-1 text-sm text-gray-500">
+        {user?.email}
+      </div>
 
       <hr className="my-3" />
 
       {/* Links */}
       <div className="grid gap-2">
         <Link
-          to=""
+          onClick={hundleClose}
+          to={"/dashboard/myorders"}
           className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
         >
           My Orders
         </Link>
         <Link
-          to=""
+          onClick={hundleClose}
+          to={"/dashboard/address"}
           className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
         >
           Add Address
         </Link>
-        <button onClick={hundleLogout} className="px-3 py-2 rounded-md text-sm text-red-600 font-medium hover:bg-red-50 text-left transition">
+        <button
+          onClick={hundleLogout}
+          className="px-3 py-2 rounded-md text-sm text-red-600 font-medium hover:bg-red-50 text-left transition"
+        >
           Logout
         </button>
       </div>

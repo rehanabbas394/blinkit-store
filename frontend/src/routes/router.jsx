@@ -7,6 +7,11 @@ import { Login } from '../pages/Login';
 import { ForgotPassword } from '../pages/forgot-password';
 import { OtpVerfication } from '../pages/otp-verification';
 import { ResetPassword } from '../pages/reset-password';
+import UserMenuMobile from '../pages/userMenuMobile';
+import Dashboard from '../layout/dashboard';
+import Profile from '../pages/profile';
+import MyOrders from '../pages/myOrders';
+import Address from '../pages/address';
 
 
 const router = createBrowserRouter([
@@ -41,6 +46,28 @@ const router = createBrowserRouter([
             {
                 path: "/reset-password",
                 element: <ResetPassword/>
+            },
+            {
+                path: "/user",
+                element: <UserMenuMobile/>
+            },
+            {
+                path: "dashboard",
+                element: <Dashboard/>,
+                children: [
+                    {
+                        path: "profile",
+                        element: <Profile/>
+                    },
+                    {
+                        path: "myorders",
+                        element: <MyOrders/>
+                    },
+                    {
+                        path: "address",
+                        element: <Address/>
+                    }
+                ]
             }
         ]
     }
