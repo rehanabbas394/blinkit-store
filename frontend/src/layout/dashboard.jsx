@@ -12,7 +12,7 @@ function Dashboard () {
                 </div>
 
                 {/* right menu */}
-                <div>
+                <div className="">
                     <Outlet/>
                 </div>
             </div>

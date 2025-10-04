@@ -64,6 +64,38 @@ function UserMenu({ close }) {
       <div className="grid gap-2">
         <Link
           onClick={hundleClose}
+          to={"/dashboard/category"}
+          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+        >
+          Category
+        </Link>
+
+        <Link
+          onClick={hundleClose}
+          to={"/dashboard/sub-category"}
+          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+        >
+          Sub Category
+        </Link>
+
+        <Link
+          onClick={hundleClose}
+          to={"/dashboard/upload-product"}
+          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+        >
+          Upload Product
+        </Link>
+
+        <Link
+          onClick={hundleClose}
+          to={"/dashboard/products"}
+          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+        >
+          Product
+        </Link>
+
+        <Link
+          onClick={hundleClose}
           to={"/dashboard/myorders"}
           className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
         >
