@@ -5,11 +5,23 @@ import { Axios } from "../utils/Axios";
 import Api_endpoints from "../common/api-details";
 import AxiosToastError from "../utils/Axios-toast-error";
 import Loading from "../component/loading";
+import EditCategory from "../component/editCategory";
+import CofirmBox from "../component/confirmBox";
+import toast from "react-hot-toast";
 
 function Category() {
     const [openAddCategory, setOpenAddCategory ] = useState(false);
     const [loading, setLoading] = useState(false);
     const [categoriesData, setCategoriesData] = useState([]);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [editData,setEditData] = useState({
+        name : "",
+        image : "",
+    })
+    const [openConfimBoxDelete,setOpenConfirmBoxDelete] = useState(false)
+    const [deleteCategory,setDeleteCategory] = useState({
+        _id : ""
+    })
 
     const fetchCategory = async()=>{
         try {
@@ -34,6 +46,32 @@ function Category() {
         fetchCategory()
     },[])
 
+    const hundleDeleteCategory = async()=>{
+        try {
+            setLoading(true);
+            const response = await Axios({
+                ...Api_endpoints.deleteCategory,
+                data : deleteCategory
+            });
+            
+            const { data: responseData } = response;
+            
+            if (responseData.success) {
+                toast.success(responseData.message);
+                setOpenConfirmBoxDelete(false);
+                // Wait a brief moment before refreshing the list
+                await new Promise(resolve => setTimeout(resolve, 100));
+                await fetchCategory();
+            } else {
+                toast.error(responseData.message || 'Failed to delete category');
+            }
+        } catch (error) {
+            AxiosToastError(error);
+        } finally {
+            setLoading(false);
+        }
+    }
+
 
     return (
         <section>
@@ -57,9 +95,23 @@ function Category() {
                                 className="w-full object-scale-down"
                                 />
                                 <p className="text-center text-sm font-bold mt-1">{category.name}</p>
-                                <div>
-                                    <button>Edit</button>
-                                    <button>Delete</button>
+                                <div className="items-center h-9 flex gap-2 mt-2">
+                                    <button className="flex-1 bg-green-100 hover:bg-green-300 text-green-600 font-medium py-1  px-2 rounded"
+                                    onClick={()=> {
+                                        setOpenEdit(true)
+                                        setEditData(category)}
+                                    }
+                                    >
+                                        Edit
+                                    </button>
+                                    <button className="flex-1 bg-red-100 hover:bg-red-300 text-green-600 font-medium py-1  px-2 rounded"
+                                    onClick={()=>{
+                                        setOpenConfirmBoxDelete(true)
+                                        setDeleteCategory(category)
+                                    }}
+                                    >
+                                        Delete
+                                    </button>
                                 </div>
 
                             </div>
@@ -71,7 +123,22 @@ function Category() {
             loading && (
                 <Loading/>
             )
-        }
+            }
+
+            { 
+                openEdit && (
+                    <EditCategory data={editData} fetchData={fetchCategory} close={()=> setOpenEdit(false)}/>
+                )
+            }
+            {
+                openConfimBoxDelete && (
+                    <CofirmBox 
+                        close={()=> setOpenConfirmBoxDelete(false)}
+                        cancel={()=> setOpenConfirmBoxDelete(false)}
+                        confirm= {hundleDeleteCategory}
+                    />
+                )
+            }
 
             {
                 openAddCategory && (
