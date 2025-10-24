@@ -16,6 +16,7 @@ import Category from '../pages/category';
 import SubCategory from '../pages/sub-category';
 import UploadProduct from '../pages/upload-product';
 import AdminProducts from '../pages/productAdmin';
+import AdminPerission from '../layout/AdminPermission';
 
 
 const router = createBrowserRouter([
@@ -73,15 +74,15 @@ const router = createBrowserRouter([
                     },
                     {
                         path: "category",
-                        element: <Category/>
+                        element: <AdminPerission><Category/></AdminPerission>
                     },
                     {
                         path: "sub-category",
-                        element: <SubCategory/>
+                        element: <AdminPerission><SubCategory/></AdminPerission>
                     },
                     {
                         path: "upload-product",
-                        element: <UploadProduct/>
+                        element: <AdminPerission> <UploadProduct/> </AdminPerission> 
                     },
                     {
                         path: "products",

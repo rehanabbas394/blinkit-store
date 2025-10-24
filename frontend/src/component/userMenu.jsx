@@ -9,6 +9,7 @@ import { Axios } from "../utils/Axios";
 import Api_endpoints from "../common/api-details";
 import AxiosToastError from "../utils/Axios-toast-error";
 import { HiOutlineExternalLink } from "react-icons/hi";
+import isAdmin from "../utils/isAdmin";
 
 function UserMenu({ close }) {
   const user = useSelector((state) => state.user);
@@ -40,7 +41,7 @@ function UserMenu({ close }) {
     if (close) {
       close();
     }
-  }
+  };
 
   return (
     <div className="max-w-sm mx-auto bg-white shadow-md rounded-lg p-5">
@@ -50,7 +51,12 @@ function UserMenu({ close }) {
         <span className="max-w-52 text-ellipsis line-clamp-1">
           {user?.firstName} {user?.name || user?.mobile}
         </span>
-        <Link onClick={hundleClose} to={"/dashboard/profile"} className="hover:text-primary-200">
+        <Link
+          onClick={hundleClose}
+          to={"/dashboard/profile"}
+          className="hover:text-primary-200 flex items-center justify-center my-1"
+        >
+          <span>{user.role==='ADMIN'? "(Admin) ": " (User) "}</span>
           <HiOutlineExternalLink size={15} />
         </Link>
       </div>
@@ -62,37 +68,45 @@ function UserMenu({ close }) {
 
       {/* Links */}
       <div className="grid gap-2">
-        <Link
-          onClick={hundleClose}
-          to={"/dashboard/category"}
-          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
-        >
-          Category
-        </Link>
+        {isAdmin(user.role) && (
+          <Link
+            onClick={hundleClose}
+            to={"/dashboard/category"}
+            className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+          >
+            Category
+          </Link>
+        )}
 
-        <Link
-          onClick={hundleClose}
-          to={"/dashboard/sub-category"}
-          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
-        >
-          Sub Category
-        </Link>
+        {isAdmin(user.role) && (
+          <Link
+            onClick={hundleClose}
+            to={"/dashboard/sub-category"}
+            className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+          >
+            Sub Category
+          </Link>
+        )}
 
-        <Link
-          onClick={hundleClose}
-          to={"/dashboard/upload-product"}
-          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
-        >
-          Upload Product
-        </Link>
+        {isAdmin(user.role) && (
+          <Link
+            onClick={hundleClose}
+            to={"/dashboard/upload-product"}
+            className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+          >
+            Upload Product
+          </Link>
+        )}
 
-        <Link
-          onClick={hundleClose}
-          to={"/dashboard/products"}
-          className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
-        >
-          Product
-        </Link>
+        {isAdmin(user.role) && (
+          <Link
+            onClick={hundleClose}
+            to={"/dashboard/products"}
+            className="px-3 py-2 rounded-md text-sm text-gray-700 hover:bg-gray-100 transition"
+          >
+            Product
+          </Link>
+        )}
 
         <Link
           onClick={hundleClose}
