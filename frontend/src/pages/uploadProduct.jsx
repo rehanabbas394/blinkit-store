@@ -117,18 +117,18 @@ function UploadProduct() {
       const { data : responseData } = response;
       if(responseData.success){
           successAlert(responseData.message)
-          setData({
-            name : "",
-            image : [],
-            category : [],
-            subCategory : [],
-            unit : "",
-            stock : "",
-            price : "",
-            discount : "",
-            description : "",
-            more_details : {},
-          })
+          // setData({
+          //   name : "",
+          //   image : [],
+          //   category : [],
+          //   subCategory : [],
+          //   unit : "",
+          //   stock : "",
+          //   price : "",
+          //   discount : "",
+          //   description : "",
+          //   more_details : {},
+          // })
 
       }
      } catch (error) {
