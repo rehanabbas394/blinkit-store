@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import UploadProduct from "./upload-product";
 import NoData from "../component/noData";
 import { Axios } from "../utils/Axios";
 import Api_endpoints from "../common/api-details";
@@ -8,6 +7,7 @@ import Loading from "../component/loading";
 import EditCategory from "../component/editCategory";
 import CofirmBox from "../component/confirmBox";
 import toast from "react-hot-toast";
+import AddCategoryProduct from "./addCategory";
 
 function Category() {
     const [openAddCategory, setOpenAddCategory ] = useState(false);
@@ -142,7 +142,7 @@ function Category() {
 
             {
                 openAddCategory && (
-                    <UploadProduct fetchData={fetchCategory} close ={()=> setOpenAddCategory(false)}/>
+                    <AddCategoryProduct fetchData={fetchCategory} close ={()=> setOpenAddCategory(false)}/>
                 )
             }
         </section>

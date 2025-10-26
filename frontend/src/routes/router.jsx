@@ -14,9 +14,10 @@ import MyOrders from '../pages/myOrders';
 import Address from '../pages/address';
 import Category from '../pages/category';
 import SubCategory from '../pages/sub-category';
-import UploadProduct from '../pages/upload-product';
 import AdminProducts from '../pages/productAdmin';
 import AdminPerission from '../layout/AdminPermission';
+import AddCategoryProduct from '../pages/addCategory';
+import UploadProduct from '../pages/uploadProduct';
 
 
 const router = createBrowserRouter([
