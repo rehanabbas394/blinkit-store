@@ -1,42 +1,42 @@
-// import React, { useState } from 'react'
-// import EditProductAdmin from './EditProductAdmin'
-// import CofirmBox from './CofirmBox'
-// import { IoClose } from 'react-icons/io5'
-// import SummaryApi from '../common/SummaryApi'
-// import Axios from '../utils/Axios'
-// import AxiosToastError from '../utils/AxiosToastError'
-// import toast from 'react-hot-toast'
+import React, { useState } from 'react'
+import EditProductAdmin from './EditProductAdmin'
+import { IoClose } from 'react-icons/io5'
+import CofirmBox from './confirmBox'
+import {Axios} from '../utils/Axios'
+import AxiosToastError from '../utils/Axios-toast-error'
+import toast from 'react-hot-toast'
+import Api_endpoints from '../common/api-details'
 
-const ProductCardAdmin = ({ data }) => {
-//   const [editOpen,setEditOpen]= useState(false)
-//   const [openDelete,setOpenDelete] = useState(false)
+const ProductCardAdmin = ({ data, fetchData }) => {
+  const [editOpen,setEditOpen]= useState(false)
+  const [openDelete,setOpenDelete] = useState(false)
 
-//   const handleDeleteCancel  = ()=>{
-//       setOpenDelete(false)
-//   }
+  const handleDeleteCancel  = ()=>{
+      setOpenDelete(false)
+  }
 
-//   const handleDelete = async()=>{
-//     try {
-//       const response = await Axios({
-//         ...SummaryApi.deleteProduct,
-//         data : {
-//           _id : data._id
-//         }
-//       })
+  const handleDelete = async()=>{
+    try {
+      const response = await Axios({
+        ...Api_endpoints.deleteProduct,
+        data : {
+          _id : data._id
+        }
+      })
+      const { data : responseData } = response
 
-//       const { data : responseData } = response
-
-//       if(responseData.success){
-//           toast.success(responseData.message)
-//           if(fetchProductData){
-//             fetchProductData()
-//           }
-//           setOpenDelete(false)
-//       }
-//     } catch (error) {
-//       AxiosToastError(error)
-//     }
-//   }
+      if(responseData.success){
+          toast.success(responseData.message)
+          if(fetchData){
+            fetchData()
+          }
+          setOpenDelete(false)
+      }
+    } catch (error) {
+        console.error("Error deleting product:", error);
+      AxiosToastError(error)
+    }
+  }
   return (
     <div className='w-36 p-4 bg-white rounded'>
         <div>
@@ -48,18 +48,18 @@ const ProductCardAdmin = ({ data }) => {
         </div>
         <p className='text-ellipsis line-clamp-2 font-medium'>{data?.name}</p>
         <p className='text-slate-400'>{data?.unit}</p>
-        {/* <div className='grid grid-cols-2 gap-3 py-2'>
+        <div className='grid grid-cols-2 gap-3 py-2'>
           <button onClick={()=>setEditOpen(true)} className='border px-1 py-1 text-sm border-green-600 bg-green-100 text-green-800 hover:bg-green-200 rounded'>Edit</button>
           <button onClick={()=>setOpenDelete(true)} className='border px-1 py-1 text-sm border-red-600 bg-red-100 text-red-600 hover:bg-red-200 rounded'>Delete</button>
-        </div> */}
+        </div>
 
-        {/* {
+        {
           editOpen && (
-            <EditProductAdmin fetchProductData={fetchProductData} data={data} close={()=>setEditOpen(false)}/>
+            <EditProductAdmin fetchProductData={fetchData} data={data} close={()=>setEditOpen(false)}/>
           )
-        } */}
+        }
 
-        {/* {
+        {
           openDelete && (
             <section className='fixed top-0 left-0 right-0 bottom-0 bg-neutral-600 z-50 bg-opacity-70 p-4 flex justify-center items-center '>
                 <div className='bg-white p-4 w-full max-w-md rounded-md'>
@@ -77,7 +77,7 @@ const ProductCardAdmin = ({ data }) => {
                 </div>
             </section>
           )
-        } */}
+        }
     </div>
   )
 }

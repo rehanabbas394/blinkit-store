@@ -88,7 +88,7 @@ function AdminProducts() {
                 {
                   productData.map((p,index)=>{
                     return(
-                      <ProductCardAdmin data={p} />
+                      <ProductCardAdmin data={p} fetchData={fetchProducts} />
                     )
                   })
                 }
