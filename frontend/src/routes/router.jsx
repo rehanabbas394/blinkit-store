@@ -18,6 +18,7 @@ import AdminProducts from '../pages/productAdmin';
 import AdminPerission from '../layout/AdminPermission';
 import AddCategoryProduct from '../pages/addCategory';
 import UploadProduct from '../pages/uploadProduct';
+import ProductListPage from '../pages/productList';
 
 
 const router = createBrowserRouter([
@@ -90,7 +91,16 @@ const router = createBrowserRouter([
                         element: <AdminProducts/>
                     }
                 ]
-            }
+            },
+            {
+                path: ":category",
+                children: [
+                    {
+                        path : ":subCategory",
+                        element : <ProductListPage/>
+                    }
+                ]
+            },
         ]
     }
 ])
