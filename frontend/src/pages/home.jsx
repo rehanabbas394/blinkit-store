@@ -4,6 +4,7 @@ import bannerMobile from '../assets/banner-mobile.jpg'
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { valideURLConvert } from "../utils/convertUrl";
+import CardWiseProductDisplay from "../component/cardWiseProductDisplay";
 
 export const Home = () =>{
     const loadingCategory = useSelector(state => state.product.loadingCategory)
@@ -66,6 +67,18 @@ export const Home = () =>{
             </div>
 
             {/* display listing */}
+
+            {
+                categoryData.map((category,index) => {
+                   return (
+                    <CardWiseProductDisplay 
+                    key={category._id+"cardWiseProductDisplay"}
+                    id={category._id}
+                    name={category.name}
+                    />
+                   )
+                })
+            }
 
 
         </section>
