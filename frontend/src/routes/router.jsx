@@ -19,6 +19,7 @@ import AdminPerission from '../layout/AdminPermission';
 import AddCategoryProduct from '../pages/addCategory';
 import UploadProduct from '../pages/uploadProduct';
 import ProductListPage from '../pages/productList';
+import ProductDisplayPage from '../pages/DisplayProduct';
 
 
 const router = createBrowserRouter([
@@ -100,6 +101,11 @@ const router = createBrowserRouter([
                         element : <ProductListPage/>
                     }
                 ]
+            },
+            {
+                
+                path : "product/:product",
+                element : <ProductDisplayPage/>
             },
         ]
     }

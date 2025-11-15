@@ -25,6 +25,7 @@ function CardWiseProductDisplay({ id, name }) {
       });
 
       const { data: responseData } = response;
+      console.log("responseData", responseData);
 
       if (responseData.success) {
         setData(responseData.data);
@@ -84,7 +85,8 @@ function CardWiseProductDisplay({ id, name }) {
           {(loading || data.length === 0) &&
             loadingCardNumber.map((_, index) => (
               <CardLoading key={"CategorywiseProductDisplayLoading" + index} />
-            ))}
+            ))
+          }
 
           {!loading &&
             data.length > 0 &&
