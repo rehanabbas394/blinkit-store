@@ -2,12 +2,11 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { valideURLConvert } from '../utils/convertUrl'
 import { DisplayPriceInRupees ,pricewithDiscount } from '../utils/priceWithDiscount'
-// import AddToCartButton from './addToCartButton'
+import AddToCartButton from './AddtoCardProduct'
 
 const CardProduct = ({data}) => {
     const url = `/product/${valideURLConvert(data.name)}-${data._id}`
     const [loading,setLoading] = useState(false)
-    console.log("data in card product",url)
   
   return (
     <Link to={url} className='border py-2 lg:p-4 grid gap-1 lg:gap-3 min-w-36 lg:min-w-52 rounded cursor-pointer bg-white' >
@@ -50,8 +49,8 @@ const CardProduct = ({data}) => {
             data.stock == 0 ? (
               <p className='text-red-500 text-sm text-center'>Out of stock</p>
             ) : (
-            //   <AddToCartButton data={data} />
-            null
+              <AddToCartButton data={data} />
+            
             )
           }
             

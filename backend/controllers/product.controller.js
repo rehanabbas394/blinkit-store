@@ -269,18 +269,17 @@ export const searchProduct = async(request,response)=>{
     try {
         let { search, page , limit } = request.body 
 
-        if(!page){
-            page = 1
-        }
-        if(!limit){
-            limit  = 10
-        }
+        // ensure page and limit are valid numbers
+        page = Number(page) || 1
+        limit = Number(limit) || 10
 
-        const query = search ? {
-            $text : {
-                $search : search
-            }
-        } : {}
+        // sanitize search input
+        if (search && typeof search !== 'string') {
+            search = String(search)
+        }
+        if (search) search = search.trim()
+
+        const query = search ? { $text: { $search: search } } : {}
 
         const skip = ( page - 1) * limit
 

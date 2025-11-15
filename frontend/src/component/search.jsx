@@ -20,6 +20,12 @@ export const Search = () => {
   const RedirectToSearchPage = () => {
     navigate("/search");
   };
+
+  const hundleSearchChange = (e) => {
+    const value = e.target.value;
+    const url = `/search?q=${value}`;
+    navigate(url);
+  };
   return (
     <div className="w-full min-w-[300px] lg:min-w-[420px] border  h-11 lg:h-12 rounded-lg overflow-hidden flex items-center text-neutral-500 group focus-within:border-primary-200">
       <div>
@@ -78,6 +84,7 @@ export const Search = () => {
               placeholder="Search for atta dal and more."
               autoFocus
               className="bg-transparent w-full h-full outline-none"
+              onChange={hundleSearchChange}
             />
           </div>
         )}

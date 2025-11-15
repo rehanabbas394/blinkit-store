@@ -9,6 +9,7 @@ import { DisplayPriceInRupees, pricewithDiscount } from "../utils/priceWithDisco
 import image1 from "../assets/minute_delivery.png"
 import image2 from "../assets/Best_Prices_Offers.png"
 import image3 from "../assets/Wide_Assortment.png"
+import AddToCartButton from "../component/AddtoCardProduct";
 
 
 function ProductDisplayPage() {
@@ -151,7 +152,7 @@ function ProductDisplayPage() {
                 : (
                   // <button className='my-4 px-4 py-1 bg-green-600 hover:bg-green-700 text-white rounded'>Add</button>
                   <div className='my-4'>
-                    {/* <AddToCartButton data={data}/> */}
+                    <AddToCartButton data={data}/>
                   </div>
                 )
               }

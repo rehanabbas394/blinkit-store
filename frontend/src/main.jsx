@@ -6,9 +6,12 @@ import router from './routes/router.jsx';
 import {RouterProvider} from 'react-router-dom'
 import { Provider } from 'react-redux';
 import store from './store/store.js';
+import GlobalProvider from './Provider/globalProvider'
 
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <RouterProvider router ={router} />
+    <GlobalProvider>
+      <RouterProvider router ={router} />
+    </GlobalProvider>
   </Provider>,
 )
