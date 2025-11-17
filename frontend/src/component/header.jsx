@@ -10,6 +10,7 @@ import { GoTriangleDown, GoTriangleUp } from "react-icons/go";
 import UserMenu from "./userMenu";
 import { DisplayPriceInRupees } from "../utils/priceWithDiscount";
 import { useGlobalContext } from "../Provider/globalProvider";
+import DisplayCartItem from "./displayCartItem";
  
 
 export const Header = () => {
@@ -143,6 +144,12 @@ export const Header = () => {
           </div>
         </div>
       )}
+
+      {
+        openCartSection && (
+          <DisplayCartItem close={()=>setOpenCartSection(false)}/>
+          )
+        }
 
       <div className="container mx-auto px-2  lg:hidden">
         <Search />

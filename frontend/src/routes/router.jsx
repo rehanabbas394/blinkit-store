@@ -20,6 +20,8 @@ import AddCategoryProduct from '../pages/addCategory';
 import UploadProduct from '../pages/uploadProduct';
 import ProductListPage from '../pages/productList';
 import ProductDisplayPage from '../pages/DisplayProduct';
+import CartMobileLink from '../component/cardMobile';
+import DisplayCartItem from '../component/displayCartItem';
 
 
 const router = createBrowserRouter([
@@ -107,6 +109,10 @@ const router = createBrowserRouter([
                 path : "product/:product",
                 element : <ProductDisplayPage/>
             },
+            {
+                path: "/cart",
+                element: <DisplayCartItem/>
+            }
         ]
     }
 ])

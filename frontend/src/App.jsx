@@ -10,6 +10,7 @@ import { setUserDetails } from './store/userSlice';
 import Api_endpoints from './common/api-details';
 import { setAllCategory, setAllSubCategory, setLoadingCategory } from './store/productSlice';
 import { Axios } from './utils/Axios';
+import CartMobileLink from './component/cardMobile';
 
 function App() {
   const dispatch = useDispatch()
@@ -66,6 +67,9 @@ function App() {
       </main>
       <Footer/>
       <Toaster />
+      <CartMobileLink/>
+
+      
    </>
   )
 }
