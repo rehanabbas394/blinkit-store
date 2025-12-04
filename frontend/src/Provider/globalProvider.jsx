@@ -2,6 +2,7 @@ import { createContext,useContext, useEffect, useState } from "react";
 import {Axios} from "../utils/Axios";
 import { useDispatch, useSelector } from "react-redux";
 import { handleAddItemCart } from "../store/cartProduct";
+import { handleAddAddress } from "../store/addressSlice";
 import AxiosToastError from "../utils/Axios-toast-error";
 import toast from "react-hot-toast";
 import { pricewithDiscount } from "../utils/priceWithDiscount";
@@ -36,6 +37,22 @@ const GlobalProvider = ({children}) => {
           console.log(error)
         }
     }
+
+  const fetchAddress = async()=>{
+    try {
+      const response = await Axios({
+        ...Api_endpoints.getAddress
+      })
+
+      const { data : responseData } = response
+      if(responseData.success){
+        // address list expected in responseData.data
+        dispatch(handleAddAddress(responseData.data || []))
+      }
+    } catch (error) {
+      console.error('Error fetching addresses:', error)
+    }
+  }
 
     const updateCartItem = async(id,qty)=>{
       try {
@@ -112,18 +129,20 @@ const GlobalProvider = ({children}) => {
 
     useEffect(()=>{
       fetchCartItem()
+      fetchAddress()
       handleLogoutOut()
     },[user])
     
     return(
-        <GlobalContext.Provider value={{
-            fetchCartItem,
-            updateCartItem,
-            deleteCartItem,
-            totalPrice,
-            totalQty,
-            notDiscountTotalPrice,
-        }}>
+    <GlobalContext.Provider value={{
+      fetchCartItem,
+      fetchAddress,
+      updateCartItem,
+      deleteCartItem,
+      totalPrice,
+      totalQty,
+      notDiscountTotalPrice,
+    }}>
             {children}
         </GlobalContext.Provider>
     )

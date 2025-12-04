@@ -22,6 +22,9 @@ import ProductListPage from '../pages/productList';
 import ProductDisplayPage from '../pages/DisplayProduct';
 import CartMobileLink from '../component/cardMobile';
 import DisplayCartItem from '../component/displayCartItem';
+import CheckoutPage from '../pages/checkoutpage';
+import Success from '../pages/success';
+import Cancel from '../pages/cancel';
 
 
 const router = createBrowserRouter([
@@ -112,6 +115,18 @@ const router = createBrowserRouter([
             {
                 path: "/cart",
                 element: <DisplayCartItem/>
+            },
+            {
+                path : "checkout",
+                element : <CheckoutPage/>
+            },
+            {
+                path: "success",
+                element: <Success/>
+            },
+            {
+                path: "cancel",
+                element: <Cancel/>
             }
         ]
     }
