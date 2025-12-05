@@ -6,7 +6,7 @@ import {Axios} from '../utils/Axios';
 import toast from 'react-hot-toast';
 import AxiosToastError from '../utils/Axios-toast-error';
 import Api_endpoints from '../common/api-details';
-import { useGlobalContext } from '../provider/GlobalProvider';
+import { useGlobalContext } from '../Provider/globalProvider';
 import AddAddress from '../component/addAddress';
 import EditAddressDetails from '../component/editEmailAddress';
 

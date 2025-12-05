@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useGlobalContext } from '../provider/GlobalProvider'
+import { useGlobalContext } from '../Provider/globalProvider'
 import { DisplayPriceInRupees } from '../utils/priceWithDiscount'
 import AddAddress from '../component/addAddress'
 import { useSelector } from 'react-redux'
@@ -31,6 +31,7 @@ const CheckoutPage = () => {
           })
 
           const { data : responseData } = response
+          console.log("responseData",responseData)
 
           if(responseData.success){
               toast.success(responseData.message)
@@ -55,9 +56,20 @@ const CheckoutPage = () => {
   const handleOnlinePayment = async()=>{
     try {
         toast.loading("Loading...")
-        const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY
+        console.log("handleOnlinePayment called")
+        // Vite exposes client env vars on import.meta.env and requires the VITE_ prefix
+        const stripePublicKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY || ''
+        console.log("stripePublicKey", stripePublicKey)
+
+        if(!stripePublicKey){
+          toast.dismiss()
+          toast.error('Stripe public key is not configured. Set VITE_STRIPE_PUBLIC_KEY in your .env file')
+          return
+        }
+
         const stripePromise = await loadStripe(stripePublicKey)
-       
+        console.log("stripePromise",stripePromise)
+        console.log("before payment api call")
         const response = await Axios({
             ...Api_endpoints.payment_url,
             data : {
@@ -69,6 +81,7 @@ const CheckoutPage = () => {
         })
 
         const { data : responseData } = response
+        console.log("responseData",responseData)
 
         stripePromise.redirectToCheckout({ sessionId : responseData.id })
         

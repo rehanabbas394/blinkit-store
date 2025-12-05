@@ -9,8 +9,8 @@ const store = configureStore({
     reducer: {
         user: userReducer,
         product : productReducer,
-        cartItem : cartReducer
-        ,addresses : addressReducer,
+        cartItem : cartReducer,
+        addresses : addressReducer,
         order : orderReducer
     }
 })

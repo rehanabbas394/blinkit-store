@@ -4,7 +4,7 @@ import {Axios} from '../utils/Axios'
 import toast from 'react-hot-toast'
 import AxiosToastError from '../utils/Axios-toast-error'
 import { IoClose } from "react-icons/io5";
-import { useGlobalContext } from '../provider/GlobalProvider'
+import { useGlobalContext } from '../Provider/globalProvider'
 import Api_endpoints from '../common/api-details'
 
 const AddAddress = ({close}) => {
