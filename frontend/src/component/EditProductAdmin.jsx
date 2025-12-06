@@ -9,7 +9,7 @@ import { IoClose } from "react-icons/io5";
 import AddFieldComponent from './addField';
 import {Axios} from '../utils/Axios';
 import AxiosToastError from '../utils/Axios-toast-error';
-import successAlert from '../utils/SuccessAlert';
+import successAlert from '../utils/successAlert';
 import Api_endpoints from '../common/api-details';
 
 const EditProductAdmin = ({ close ,data : propsData,fetchProductData}) => {
