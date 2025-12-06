@@ -37,7 +37,7 @@ function MyOrders() {
                                     <div>
                                         <p className='text-sm text-neutral-500'>Order No: <span className='font-medium'>{order?.orderId}</span></p>
                                         <h3 className='font-semibold text-lg'>{name}</h3>
-                                        <p className='text-sm text-neutral-500 mt-1'>{orderDate}</p>
+                                        <p className='text-sm text-neutral-500 mt-1'>{orderDate}</p> 
                                     </div>
 
                                     <div className='text-right'>
