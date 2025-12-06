@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FaCloudUploadAlt } from "react-icons/fa";
 import uploadImage from '../utils/uploadImage';
 import Loading from '../component/loading';
-import ViewImage from '../component/ViewImage';
+import ViewImage from '../component/viewImage';
 import { MdDelete } from "react-icons/md";
 import { useSelector } from 'react-redux'
 import { IoClose } from "react-icons/io5";
