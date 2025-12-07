@@ -16,10 +16,37 @@ import addressRouter from './route/address.route.js'
 import orderRouter from './route/order.route.js'
 
 const app = express()
+
+// Read and normalize frontend origins from env
+const rawFrontend = (process.env.FRONTEND_URL || process.env.FRONTEND_URLS || '').trim()
+// remove trailing slash if present
+const normalizedFrontend = rawFrontend.replace(/\/+$/, '')
+const raw2frontend = (process.env.FRONTEND_URLS || '').trim()
+const normalized2frontend = raw2frontend.replace(/\/+$/, '')
+console.log('Configured FRONTEND_URL(s):', rawFrontend)
+
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    normalizedFrontend,
+    normalized2frontend,
+    'https://blinkit-store-7zz6.vercel.app'
+].filter(Boolean)
+
 app.use(cors({
-    credentials : true,
-    origin : process.env.FRONTEND_URLS
+    origin: (origin, callback) => {
+        // allow requests with no origin (server-to-server, curl)
+        if (!origin) return callback(null, true)
+        if (allowedOrigins.includes(origin)) return callback(null, true)
+        return callback(new Error('Not allowed by CORS'))
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    credentials: true
 }))
+
+// handle preflight for all routes
+app.options('*', cors())
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan())
@@ -27,8 +54,8 @@ app.use(helmet({
     crossOriginResourcePolicy : false
 }))
 
-const PORT = 8080 || process.env.PORT 
-
+const PORT = process.env.PORT || 8080
+console.log("FRONTEND URL", process.env.FRONTEND_URL)
 app.get("/",(request,response)=>{
     ///server to client
     response.json({
