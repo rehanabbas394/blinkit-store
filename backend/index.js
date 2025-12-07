@@ -30,7 +30,7 @@ const allowedOrigins = [
     'http://127.0.0.1:5173',
     normalizedFrontend,
     normalized2frontend,
-    'https://blinkit-store-7zz6.vercel.app'
+    'https://blinkit-store-7zz6.vercel.app/'
 ].filter(Boolean)
 
 app.use(cors({
